@@ -14,7 +14,7 @@
   3) You will need to make sure that each template has the
      correct model provided by its route.
 
-  Remember that you can use `findProperty` to find the album
+  Remember that you can use `findBy` to find the album
   with a given `id` (You can see emberjs.com/guides/enumerables
   for more information).
 */
