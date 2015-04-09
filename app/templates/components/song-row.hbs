@@ -5,4 +5,9 @@
 <td class="song-name">{{song.name}}</td>
 <td class="song-duration">{{format-duration song.duration}}</td>
 
+<td {{ action 'fav' }}>
+{{if isFavorite 'fav' 'yuk'}}
+</td>
+
+
 
