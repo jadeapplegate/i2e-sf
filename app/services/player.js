@@ -29,7 +29,11 @@ export default Ember.Service.extend({
   },
 
   pause() {
-    this.get('audioElement').pause()
+    this.get('audioElement').pause();
+  },
+
+  resume() {
+    this.get('audioElement').play();
   },
 
 // this willDestroy is just used to pass the tests, not necessarily used to implement the play/pause
