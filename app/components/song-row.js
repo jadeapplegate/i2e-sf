@@ -4,24 +4,29 @@ var computed = Ember.computed;
 
 export default Ember.Component.extend({
   tagName: 'tr',
-  isPlaying: false,
+  classNameBindings: ['isCurrentSong'],
   player: inject.service(),
-
-  favorites: inject.service(), // New!
+  favorites: inject.service(),
 
   isFavorite: computed('favorites.songs.@each', function() {
     var song = this.get('song');
     return this.get('favorites.songs').contains(song);
   }),
 
+  isCurrentSong: computed('player.song', 'song', function() {
+    return this.get('player.song') === this.get('song');
+  }),
+
+  isPlaying: computed('player.isPlaying', 'isCurrentSong', function() {
+    return this.get('player.isPlaying') && this.get('isCurrentSong');
+  }),
+
   actions: {
 
     toggle() {
-      if (this.get('player').get('isPlaying')) {
-        this.set('isPlaying', false);
+      if (this.get('isPlaying')) {
         this.get('player').pause(this.get('song'));
       } else {
-        this.set('isPlaying', true);
         this.get('player').play(this.get('song'));
       }
     },

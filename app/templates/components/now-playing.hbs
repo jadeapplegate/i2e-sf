@@ -1,0 +1,18 @@
+{{#if player.isPlaying}}
+  <footer class="now-playing">
+    <img class="now-playing-artwork" src={{player.song.album.artwork}}>
+    <div class="now-playing-body">
+      <p class="now-playing-details">
+        <span class="now-playing-name">{{player.song.name}}</span> -
+        <span class="now-playing-artist">{{player.song.album.artist}}</span>
+      </p>
+      <div class="now-playing-player">
+        <p class="duration">{{format-duration player.song.duration}}</p>
+      </div>
+    </div>
+  </footer>
+{{else}}
+  <footer class="now-playing">
+    <span class="now-playing-empty">Select a song to start playing.</span>
+</footer>
+{{/if}}

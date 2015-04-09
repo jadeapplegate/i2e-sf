@@ -4,11 +4,13 @@ var on = Ember.on;
 export default Ember.Service.extend({
   isPlaying: false,
   audioElement: null,
+  currentTime: 0,
 
   setupAudioElement: on('init', function() {
     var el = document.createElement('audio');
     el.addEventListener('play', Ember.run.bind(this, 'didStartPlaying'));
     el.addEventListener('pause', Ember.run.bind(this, 'didPause'));
+    el.addEventListener('timeupdate', Ember.run.bind(this, 'currentTimeChanged'));
     this.set('audioElement', el);
   }),
 
@@ -21,18 +23,21 @@ export default Ember.Service.extend({
   },
 
   play(song) {
-    this.set('isPlaying', true);
+    this.set('song', song);
     this.set('audioElement.src', song.get('url'));
     this.get('audioElement').play();
   },
 
   pause() {
-    this.set('isPlaying', false);
     this.get('audioElement').pause()
   },
 
 // this willDestroy is just used to pass the tests, not necessarily used to implement the play/pause
   willDestroy() {
     this.get('audioElement').src = '';
+  },
+
+  currentTimeChanged() {
+    this.set('currentTime', Math.floor(this.get('audioElement.currentTime')));
   }
 });
